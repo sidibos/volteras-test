@@ -7,6 +7,7 @@ from typing import List
 
 router = APIRouter()
 
+# List all vehicles
 @router.get("/vehicles", response_model=List[VehicleSchema])
 def list_vehicles(db: Session = Depends(get_db)):
     return crud.get_all_vehicles(db)

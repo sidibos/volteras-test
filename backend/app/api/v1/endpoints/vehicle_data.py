@@ -15,6 +15,7 @@ from models import Vehicle, VehicleData
 
 router = APIRouter()
 
+# List vehicle data with optional filters
 @router.get("/vehicle_data/", response_model=List[VehicleDataSchema])
 async def list_vehicle_data(
     vehicle_id: str = Query(None, description="Filter by vehicle ID"),
@@ -27,6 +28,7 @@ async def list_vehicle_data(
     return crud.get_vehicle_data(db, vehicle_id, skip, limit, start, end)
 
 
+# Get vehicle data by ID
 @router.get("/vehicle_data/{data_id}/", response_model=VehicleDataSchema)
 async def get_vehicle_data_by_id(data_id: int, db: Session = Depends(get_db)):
     data = crud.get_vehicle_data_by_id(db, data_id)
@@ -34,6 +36,7 @@ async def get_vehicle_data_by_id(data_id: int, db: Session = Depends(get_db)):
         raise HTTPException(status_code=404, detail="Vehicle data not found")
     return data
 
+# Create new vehicle data record
 @router.post("/vehicle_data/", response_model=VehicleDataSchema, status_code=201)
 def create_vehicle_data(data: VehicleDataCreate, db: Session = Depends(get_db)):
     try:
@@ -43,6 +46,7 @@ def create_vehicle_data(data: VehicleDataCreate, db: Session = Depends(get_db)):
         raise HTTPException(status_code=400, detail=str(e))
     
 
+# Upload vehicle data from CSV file
 @router.post("/vehicle_data/upload/", response_model=VehicleDataUploadResponse, status_code=201)
 async def upload_vehicle_csv(file: UploadFile = File(...), db: Session = Depends(get_db)):
     # Check CSV file
@@ -81,11 +85,13 @@ async def upload_vehicle_csv(file: UploadFile = File(...), db: Session = Depends
     return {"message": "Data uploaded successfully", "vehicle_id": vehicle_id, "records_uploaded": len(df)}
 
 
+# Get count of vehicle data records for a specific vehicle
 @router.get("/vehicle_data/count")
 def get_vehicle_data_count(vehicle_id: str, db: Session = Depends(get_db))-> int:
     return db.query(VehicleData).filter(VehicleData.vehicle_id == vehicle_id).count()
 
 
+# Export vehicle data to CSV, JSON, or Excel
 @router.get("/vehicle_data/export")
 def export_vehicle_data(
     vehicle_id: str,
