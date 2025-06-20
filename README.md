@@ -32,7 +32,7 @@ A full-stack application to manage and visualize vehicle telemetry data using:
 
 ---
 
-## 🚀 Getting Started
+## 🚀 Setup
 
 ### 1. Clone the repo
 
@@ -42,7 +42,11 @@ cd volteras-test
 ```
 
 ### 2. Set environment variables
-Create a file called .env in the same directory as `docker-compose.yml`:
+Create a file called .env by copying .env.dist to .env in the same directory as `docker-compose.yml`:
+
+```bash
+cp .env.dist .env
+```
 
 ```bash
 MYSQL_USER=appuser

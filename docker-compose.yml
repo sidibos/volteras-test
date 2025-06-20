@@ -1,11 +1,28 @@
 version: "3.9"
 
 services:
+
+  db:
+    image: mysql:8.0
+    container_name: volteras_db
+    #restart: always
+    ports:
+      - "3307:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    volumes:
+      - mysql_db_data:/var/lib/mysql
+    networks:
+      - appnet
+
   backend:
     build: ./backend
     container_name: fastapi_backend
     ports:
-      - "8080:8000"
+      - "8181:8000"
     env_file:
       - .env
     volumes:
@@ -13,7 +30,7 @@ services:
     depends_on:
       - db
     networks:
-      - appnet
+      - appnet 
 
   frontend:
     build: ./frontend
@@ -23,26 +40,10 @@ services:
     depends_on:
       - backend
     networks:
-      - appnet
-
-  db:
-    image: mysql:8
-    container_name: mysql_db
-    restart: always
-    ports:
-      - "3307:3306"
-    environment:
-      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
-      MYSQL_DATABASE: ${MYSQL_DATABASE}
-      MYSQL_USER: ${MYSQL_USER}
-      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
-    volumes:
-      - db_data:/var/lib/mysql
-    networks:
-      - appnet
+      - appnet       
 
 volumes:
-  db_data:
+  mysql_db_data:
 
 networks:
   appnet:
