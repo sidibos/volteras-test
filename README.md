@@ -57,7 +57,7 @@ MYSQL_ROOT_PASSWORD=rootpass
 ### 3. Start the full stack with Docker
 
 ```bash
-docker-compose up  -d --build
+docker-compose up --build
 
 ```
 ### 4 API Endpoints (FastAPI)
@@ -74,7 +74,7 @@ docker-compose up  -d --build
 
 
 ### 5. Navigate to URLS 
-- Backend (fastAPI) FastAPI runs at: http://localhost:8080
+- Backend (fastAPI) FastAPI runs at: http://localhost:8181
 - Frontend (React) at: http://localhost:3001
 
 ### 6. Upload the sample data
