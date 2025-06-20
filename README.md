@@ -37,8 +37,8 @@ A full-stack application to manage and visualize vehicle telemetry data using:
 ### 1. Clone the repo
 
 ```bash
-git clone https://github.com/your-username/vehicle-data-dashboard.git
-cd vehicle-data-dashboard
+git clone https://github.com/sidibos/volteras-test.git
+cd volteras-test
 ```
 
 ### 2. Set environment variables
