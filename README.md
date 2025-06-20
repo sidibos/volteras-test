@@ -112,3 +112,9 @@ The export filename includes a timestamp.
 ├── .env
 └── README.md
 ```
+
+## 📸 Screenshot
+
+- ![Frontend UI](assets/frontend_ui.png)
+- ![Backend APIs UI](assets/backend_apis_swagger_ui.png)
+
